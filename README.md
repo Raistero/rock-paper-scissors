@@ -1,2 +1,2 @@
-# rock-paper-scissors
-Game played against the computer
+# Console game of Rock, Paper, Scissors
+Game will be played agains the computer. Player will be promted 5 times for a selection. After each selection, the console will evaluate the winner and display the round result. After the final round, a console.log will display the game winner, the final score and any number of draws.
