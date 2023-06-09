@@ -39,31 +39,87 @@ function getGameResult (result) {
   }
 }
 
+function finishGame() {
+  rock.disabled = true;
+  paper.disabled = true;
+  scissors.disabled = true;
+  newGameButton.style.visibility = "visible";
+  return;
+}
+
+const rock = document.querySelectorAll("button")[0];
+const paper = document.querySelectorAll("button")[1];
+const scissors = document.querySelectorAll("button")[2];
+const newGameButton = document.querySelectorAll("button")[3];
+const resultLog = document.querySelector(".result");
+
+let result ="";
 let winCounter = 0;
 let loseCounter = 0;
-let drawCounter = 0
+let drawCounter = 0;
 
-for(let i = 1; i <= 5; i++) {
-  let playerChoice = prompt("Insert your choice:", "Rock, Paper or Scissors");
-  let roundPlay = playRound(playerChoice, getComputerChoice());
-  if (getGameResult(roundPlay) === "W") {
-    console.log(roundPlay);
-    winCounter++;
-  } else if(getGameResult(roundPlay) === "L") {
-    console.log(roundPlay);
-    loseCounter++;
-  } else if (getGameResult(roundPlay) === "D"){
-    console.log(roundPlay);
-    drawCounter++;
-  } else {
-    console.log(roundPlay);
+function checkWin () {
+  if (winCounter === 5) {
+    const winLine = `You Won! Result: You ${winCounter} - ${loseCounter} Computer (${drawCounter} Draw)`;
+    roundLog(winLine);
+
+    finishGame();
+    return;
+  }
+
+  if (loseCounter === 5) {
+    let loseParagraph = document.createElement("p");
+    loseParagraph.textContent = `You Lost! Result: You ${winCounter} - ${loseCounter} Computer (${drawCounter} Draw)`;
+    resultLog.appendChild(loseParagraph);
+    
+    finishGame();
+    return;
   }
 }
 
-if(winCounter > loseCounter) {
-  console.log(`You Won! Result: You ${winCounter} - ${loseCounter} Computer (${drawCounter} Draw)`);
-} else if (winCounter < loseCounter) {
-  console.log(`You Lost! Result: You ${winCounter} - ${loseCounter} Computer (${drawCounter} Draw)`);
-} else {
-  console.log(`It's a Draw! Result: You ${winCounter} - ${loseCounter} Computer`);
+function roundLog(textLine) {
+  const paragraph = document.createElement("p");
+  resultLog.appendChild(paragraph);
+  paragraph.textContent = textLine;
 }
+
+function decideRound(choice) {
+  result = playRound(choice, getComputerChoice());
+  if(getGameResult(result) === 'W') {
+    winCounter++;
+  } else if (getGameResult(result) === 'L') {
+    loseCounter++;
+  } else {
+    drawCounter++;
+  }
+}
+
+rock.addEventListener("click", () => {
+  decideRound("rock");
+  roundLog(result);
+  checkWin();
+});
+  
+paper.addEventListener("click", () => {
+  decideRound("paper");
+  roundLog(result);
+  checkWin();
+});
+  
+scissors.addEventListener("click", () => {
+  decideRound("scissors");
+  roundLog(result);
+  checkWin();
+});
+
+newGameButton.addEventListener("click", () => {
+  winCounter = 0;
+  loseCounter = 0;
+  rock.disabled = false;
+  paper.disabled = false;
+  scissors.disabled = false;
+  newGameButton.style.visibility = "hidden";
+  while(resultLog.firstChild) {
+    resultLog.removeChild(resultLog.firstChild);
+  }
+})
