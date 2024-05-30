@@ -44,7 +44,30 @@ function playRound(humanChoice, computerChoice) {
     return "It's a Draw!";
 }
 
-const computerChoice = getComputerChoice();
-const humanChoice = getHumanChoice();
+function playGame() {
+  let gameCounter = 0;
+  do {
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    console.log(playRound(humanChoice, computerChoice));
+    console.log(`Current score: You ${humanScore} - ${computerScore} Computer`);
+    gameCounter += 1;
+  } while(gameCounter < 5);
 
-console.log(playRound(humanChoice, computerChoice));
+  let result;
+  if(humanScore > computerScore) {
+    result = `You've won! Final score: ${humanScore} - ${computerScore}`;
+    console.log(result);
+    return result;
+  } else if(humanScore < computerScore) {
+    result = `You've lost! Final score: ${computerScore} - ${humanScore}`;
+    console.log(result);
+    return result;
+  } else {
+    result = `It's a draw! Final score: You ${humanScore} - ${computerScore} Computer`;
+    console.log(result);
+    return result;
+  }
+}
+
+playGame();
