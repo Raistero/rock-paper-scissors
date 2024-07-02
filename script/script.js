@@ -2,17 +2,14 @@ let humanScore = 0;
 let computerScore = 0;
 
 function getComputerChoice() {
-   let choice = Math.floor(Math.random() * 3) + 1;
-   if (choice == 1) 
-    return "rock";
-  else if (choice == 2)
-    return "paper";
-  else 
-    return "scissors";
+  let choice = Math.floor(Math.random() * 3) + 1;
+  if (choice == 1) return "rock";
+  else if (choice == 2) return "paper";
+  else return "scissors";
 }
 
 function playRound(humanChoice, computerChoice) {
-  if(humanChoice === "rock" && computerChoice === "paper") {
+  if (humanChoice === "rock" && computerChoice === "paper") {
     computerScore += 1;
     return "Computer Wins! Paper beats Rock";
   } else if (humanChoice === "rock" && computerChoice === "scissors") {
@@ -20,8 +17,8 @@ function playRound(humanChoice, computerChoice) {
     return "You Win! Rock beats Scissors";
   } else if (humanChoice === "rock" && computerChoice === "rock")
     return "It's a Draw!";
-  
-  if(humanChoice === "paper" && computerChoice === "scissors") {
+
+  if (humanChoice === "paper" && computerChoice === "scissors") {
     computerScore += 1;
     return "Computer Wins! Scissors beats Paper";
   } else if (humanChoice === "paper" && computerChoice === "rock") {
@@ -30,7 +27,7 @@ function playRound(humanChoice, computerChoice) {
   } else if (humanChoice === "paper" && computerChoice === "paper")
     return "It's a Draw!";
 
-  if(humanChoice === "scissors" && computerChoice === "rock") {
+  if (humanChoice === "scissors" && computerChoice === "rock") {
     computerScore += 1;
     return "Computer Wins! Rock beats Scissors";
   } else if (humanChoice === "scissors" && computerChoice === "paper") {
@@ -42,7 +39,10 @@ function playRound(humanChoice, computerChoice) {
 
 function resultsLogPrint(userInput) {
   const resultsLog = document.createElement("p");
-  resultsLog.textContent = playRound(userInput, getComputerChoice());
+  resultsLog.textContent = `${playRound(
+    userInput,
+    getComputerChoice()
+  )} Current score: You ${humanScore} - ${computerScore} Computer`;
   document.body.appendChild(resultsLog);
 }
 
@@ -50,14 +50,18 @@ const rockButton = document.querySelector("#rock-btn");
 const paperButton = document.querySelector("#paper-btn");
 const scissorsButton = document.querySelector("#scissors-btn");
 
-rockButton.addEventListener("click", () => {
+function handledRock() {
   resultsLogPrint("rock");
-});
+}
 
-paperButton.addEventListener("click", () => {
+function handledPaper() {
   resultsLogPrint("paper");
-});
+}
 
-scissorsButton.addEventListener("click", () => {
+function hanndledScissors() {
   resultsLogPrint("scissors");
-});
+}
+
+rockButton.addEventListener("click", handledRock);
+paperButton.addEventListener("click", handledPaper);
+scissorsButton.addEventListener("click", hanndledScissors);
