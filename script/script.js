@@ -40,18 +40,24 @@ function playRound(humanChoice, computerChoice) {
     return "It's a Draw!";
 }
 
+function resultsLogPrint(userInput) {
+  const resultsLog = document.createElement("p");
+  resultsLog.textContent = playRound(userInput, getComputerChoice());
+  document.body.appendChild(resultsLog);
+}
+
 const rockButton = document.querySelector("#rock-btn");
 const paperButton = document.querySelector("#paper-btn");
 const scissorsButton = document.querySelector("#scissors-btn");
 
 rockButton.addEventListener("click", () => {
-  console.log(playRound("rock", getComputerChoice()));
+  resultsLogPrint("rock");
 });
 
 paperButton.addEventListener("click", () => {
-  console.log(playRound("paper", getComputerChoice()));
+  resultsLogPrint("paper");
 });
 
 scissorsButton.addEventListener("click", () => {
-  console.log(playRound("scissors", getComputerChoice()));
+  resultsLogPrint("scissors");
 });
