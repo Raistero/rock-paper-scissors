@@ -11,10 +11,6 @@ function getComputerChoice() {
     return "scissors";
 }
 
-function getHumanChoice(){
-  return prompt("Please write your choice(rock, paper or scissors): ").toLowerCase().trim();
-}
-
 function playRound(humanChoice, computerChoice) {
   if(humanChoice === "rock" && computerChoice === "paper") {
     computerScore += 1;
@@ -44,30 +40,18 @@ function playRound(humanChoice, computerChoice) {
     return "It's a Draw!";
 }
 
-function playGame() {
-  let gameCounter = 0;
-  do {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    console.log(playRound(humanChoice, computerChoice));
-    console.log(`Current score: You ${humanScore} - ${computerScore} Computer`);
-    gameCounter += 1;
-  } while(gameCounter < 5);
+const rockButton = document.querySelector("#rock-btn");
+const paperButton = document.querySelector("#paper-btn");
+const scissorsButton = document.querySelector("#scissors-btn");
 
-  let result;
-  if(humanScore > computerScore) {
-    result = `You've won! Final score: ${humanScore} - ${computerScore}`;
-    console.log(result);
-    return result;
-  } else if(humanScore < computerScore) {
-    result = `You've lost! Final score: ${computerScore} - ${humanScore}`;
-    console.log(result);
-    return result;
-  } else {
-    result = `It's a draw! Final score: You ${humanScore} - ${computerScore} Computer`;
-    console.log(result);
-    return result;
-  }
-}
+rockButton.addEventListener("click", () => {
+  console.log(playRound("rock", getComputerChoice()));
+});
 
-playGame();
+paperButton.addEventListener("click", () => {
+  console.log(playRound("paper", getComputerChoice()));
+});
+
+scissorsButton.addEventListener("click", () => {
+  console.log(playRound("scissors", getComputerChoice()));
+});
